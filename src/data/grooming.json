@@ -1,0 +1,17 @@
+[
+  {
+    "id": "",
+    "category": [],
+    "name": "Budiman Salon",
+    "address": "Jalan Keponakan",
+    "phone": "0822222222222",
+    "image": "",
+    "items": [
+      {
+        "id": "1", "name": "Potong Kuku",
+        "price": 80000,
+        "description": ""
+      }
+    ]
+  }
+]

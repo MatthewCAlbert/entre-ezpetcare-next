@@ -1,4 +1,4 @@
-export const firebaseConfig = {
+export const firebaseConfigExample = {
   apiKey: "your_api_key",
   authDomain: "your_auth_domain",
   databaseURL: "your_db_url",

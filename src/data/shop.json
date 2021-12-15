@@ -1,0 +1,17 @@
+[
+  {
+    "id": "",
+    "category": [],
+    "name": "Budiman Shop",
+    "address": "Jalan Keponakan",
+    "phone": "0822222222222",
+    "image": "",
+    "items": [
+      {
+        "id": "1", "name": "Makanan Anjing",
+        "price": 80000, "image": "",
+        "description": ""
+      }
+    ]
+  }
+]
