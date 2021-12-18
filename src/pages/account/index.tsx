@@ -6,10 +6,21 @@ import withAuth, { ReactProtectedPageInterface } from '@/hoc/withAuth'
 import { Avatar } from '@chakra-ui/avatar'
 import { Button } from '@chakra-ui/button'
 import { Divider, Text } from '@chakra-ui/layout'
+import { useToast } from '@chakra-ui/react'
 import { NextPage } from 'next'
 
 const AccountPage: NextPage<ReactProtectedPageInterface> = ({auth, router}) => {
   
+  const toast = useToast();
+
+  const onFeatureNotAvailable = ()=>{
+    toast({
+      title: 'Fitur dalam perjalanan.',
+      status: 'warning',
+      duration: 1000,
+    })
+  }
+
   const onLogout = ()=>{
     auth?.logout();
     router?.push(route.index);
@@ -37,10 +48,10 @@ const AccountPage: NextPage<ReactProtectedPageInterface> = ({auth, router}) => {
 
           <Text fontSize="xl" fontWeight="bold" marginBottom={2}>Menu</Text>
 
-          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth>Ganti Password</Button>
-          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth>Pilih Bahasa (Indonesia)</Button>
-          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth>Bantuan</Button>
-          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth>Tentang</Button>
+          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth onClick={onFeatureNotAvailable}>Ganti Password</Button>
+          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth onClick={onFeatureNotAvailable}>Pilih Bahasa (Indonesia)</Button>
+          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth onClick={onFeatureNotAvailable}>Bantuan</Button>
+          <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth onClick={onFeatureNotAvailable}>Tentang</Button>
           <Button color="white" backgroundColor="orange.400" colorScheme="orange" marginBottom={2} isFullWidth onClick={onLogout}>Keluar</Button>
         </div>
       </section>

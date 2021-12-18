@@ -9,19 +9,22 @@ import { getUnecryptedCookie } from '@/utils/cookie';
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
+import { useToast } from '@chakra-ui/react';
 import { css } from '@emotion/react';
-import dayjs from 'dayjs';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { NextPage } from 'next'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { getDocs, collection, query, where } from '@firebase/firestore/lite';
 
 const LoginPage: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const auth = useContext(AuthContext);
   const router = useRouter();
   const redirectPath = getUnecryptedCookie("auth-redirect");
+  const toast = useToast();
 
   useEffect(()=>{
     if( auth.isAuthenticated() ){
@@ -30,27 +33,57 @@ const LoginPage: NextPage = () => {
   }, [])
 
   const handleLogin = (data: any)=>{
-    const {username, password} = data;
-    setLoading(true);
+    const {email, password} = data;
 
     // submit login
-    auth.login({
-      token: {
-        token: "Bearer xxxxx",
-        expires: dayjs(new Date()).add(7, 'day').toISOString()
-      },
-      user: {
-        email: username,
-        username: username,
-        name: username.match(/[a-zA-Z\d]+/gi)?.[0] || "User",
-        active: 1
-      }
-    });
+    if( !auth?.auth ) return;
+    setLoading(true);
 
-    if( redirectPath !== route.account.index )
-      router.push(redirectPath || route.index);
-    else
-      router.push(route.index);
+    signInWithEmailAndPassword(auth?.auth, email, password)
+      .then(async (userCredential) => {
+        // Signed in 
+        toast({
+          title: 'Login success.',
+          status: 'success',
+          duration: 2000,
+        })
+        const user = userCredential.user;
+        let userData = {
+          id: user.uid || "",
+          name: user?.displayName || "User",
+          email: user.email || "",
+          phone: user?.phoneNumber || "",
+        };
+        try {
+          if( auth?.firestore ){
+            const q = query(collection(auth?.firestore, 'users'), where("uid", "==", user.uid))
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach(el=>{
+              userData = {...userData, name: el.get('name'), phone: el.get('phone') }
+            })
+          }
+        } catch (error) {
+        }
+        auth?.login({user: userData});
+        if( redirectPath !== route.account.index )
+          router.push(redirectPath || route.index);
+        else
+          router.push(route.index);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+        toast({
+          title: 'Login error.',
+          status: 'error',
+          duration: 2000,
+        })
+      })
+      .finally(()=>{
+        setLoading(false);
+      })
+
   }
 
   const {
@@ -70,8 +103,8 @@ const LoginPage: NextPage = () => {
 
             <form onSubmit={handleSubmit(handleLogin)} className="w-full mt-5">
               <FormControl isInvalid={errors.username}>
-                <FormLabel>Username / Email</FormLabel>
-                <Input type="text" placeholder='' className="mb-4" {...register("username", {required: true})} />
+                <FormLabel>Email</FormLabel>
+                <Input type="email" placeholder='' className="mb-4" {...register("email", {required: true})} />
               </FormControl>
 
               <FormControl isInvalid={errors.password}>

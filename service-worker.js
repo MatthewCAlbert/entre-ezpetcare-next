@@ -13,7 +13,7 @@ const WB_MANIFEST = self.__WB_MANIFEST;
 
 WB_MANIFEST.push({
   url: '/',
-  revision: 27,
+  revision: 1,
 });
 
 let newManifest = WB_MANIFEST.filter((e)=>{
@@ -73,7 +73,7 @@ registerRoute(
 // https://developers.google.com/web/tools/workbox/guides/advanced-recipes#comprehensive_fallbacks
 
 // Use a stale-while-revalidate strategy for all other requests.
-// setDefaultHandler(new StaleWhileRevalidate());
+setDefaultHandler(new StaleWhileRevalidate());
 
 // This "catch" handler is triggered when any of the other routes fail to
 // generate a response.

@@ -1,7 +1,10 @@
+import { firebaseConfig } from "@/config/firebase";
 import dayjs from "dayjs";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
-
-const { default: AuthContext } = require("./AuthContext");
+import AuthContext from "./AuthContext";
+import { getFirestore } from '@firebase/firestore/lite';
 
 export interface UserDataInterface{
   active?: number,
@@ -23,6 +26,9 @@ const AuthProvider: React.FC = ({children})=>{
   const [user, setUser] = useState<UserDataInterface | null>(null);
   const [token, setToken] = useState<TokenDataInterface | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
+  const auth = getAuth(app);
 
   const AUTH_USER_STORAGE = String(process.env.AUTH_USER_STORAGE);
   const AUTH_TOKEN_STORAGE = String(process.env.AUTH_TOKEN_STORAGE);
@@ -32,7 +38,7 @@ const AuthProvider: React.FC = ({children})=>{
   }
 
   const isAuthenticated = () => {
-    return loaded && token && !isExpired();
+    return auth.currentUser ? true : false;
   }
 
   useEffect(() => {
@@ -47,22 +53,18 @@ const AuthProvider: React.FC = ({children})=>{
   }, [])
 
   const login = (data: {
-    token: TokenDataInterface,
     user: UserDataInterface
   })=>{
     setUser(data.user);
-    setToken(data.token);
-    localStorage.setItem(AUTH_TOKEN_STORAGE, JSON.stringify(data.token) );
     localStorage.setItem(AUTH_USER_STORAGE, JSON.stringify(data.user) );
   }
   const logout = ()=>{
     setUser(null);
-    setToken(null);
-    localStorage.removeItem(AUTH_TOKEN_STORAGE);
     localStorage.removeItem(AUTH_USER_STORAGE);
+    auth.signOut();
   }
 
-  const context = { user, token, isAuthenticated, login, logout, loaded, isExpired }
+  const context = { auth, firestore, user, token, isAuthenticated, login, logout, loaded, isExpired }
 
   return (
     <AuthContext.Provider value={context}>
