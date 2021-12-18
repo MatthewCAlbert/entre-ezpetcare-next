@@ -4,7 +4,7 @@ import qs from "query-string";
 import { fakeDBTableName } from "@/data";
 import { route } from "@/config/route";
 
-const useSearch = (type: fakeDBTableName, target = route.search) => {
+const useSearch = (type: fakeDBTableName | null, target = route.search) => {
   const router = useRouter();
   const {q} = router.query;
   const [searchInput, setSearchInput] = useState("");

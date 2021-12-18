@@ -4,10 +4,10 @@ import { fakeDBTableName } from "@/data";
 import useSearch from "@/hooks/useSearch";
 
 const SearchSection: React.FC<{
-  type: fakeDBTableName,
+  type?: fakeDBTableName,
   targetUrl?: string
 }> = ({type, targetUrl = "/search"}) => {
-  const { onSearch, searchInput, setSearchInput } = useSearch(type, targetUrl);
+  const { onSearch, searchInput, setSearchInput } = useSearch(type || null, targetUrl);
 
   return (
     <div className="flex justify-between items-center shadow rounded-2xl bg-white px-6 py-1">

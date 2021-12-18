@@ -18,6 +18,7 @@
 - Shop Search (on the way)
 - Doctor Search (on the way)
 - Grooming Search (on the way)
+- Checkout (not implemented yet)
 - Pesanan (not implemented yet)
 - MyJadwal (not implemented yet)
 - Account Edit (not implemented yet)

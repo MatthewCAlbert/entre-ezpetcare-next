@@ -13,7 +13,7 @@ const WB_MANIFEST = self.__WB_MANIFEST;
 
 WB_MANIFEST.push({
   url: '/',
-  revision: 1,
+  revision: 2,
 });
 
 let newManifest = WB_MANIFEST.filter((e)=>{
