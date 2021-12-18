@@ -1,11 +1,10 @@
 import { firebaseConfig } from "@/config/firebase";
 import dayjs from "dayjs";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { browserLocalPersistence, getAuth, setPersistence } from "firebase/auth";
 import { useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import { getFirestore } from '@firebase/firestore/lite';
-
 export interface UserDataInterface{
   active?: number,
   email?: string,
@@ -43,13 +42,13 @@ const AuthProvider: React.FC = ({children})=>{
 
   useEffect(() => {
     const userStorage = localStorage.getItem(AUTH_USER_STORAGE);
-    const tokenStorage = localStorage.getItem(AUTH_TOKEN_STORAGE);
-    if (userStorage && tokenStorage) {
+    if (userStorage) {
       const userData = JSON.parse(userStorage);
       setUser(userData);
-      setToken(JSON.parse(tokenStorage));
     }
-    setLoaded(true);
+    setPersistence(auth, browserLocalPersistence).finally(()=>{
+      setLoaded(true);
+    })
   }, [])
 
   const login = (data: {
