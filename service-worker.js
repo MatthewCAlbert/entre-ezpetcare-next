@@ -13,7 +13,7 @@ const WB_MANIFEST = self.__WB_MANIFEST;
 
 WB_MANIFEST.push({
   url: '/',
-  revision: 2,
+  revision: 4,
 });
 
 let newManifest = WB_MANIFEST.filter((e)=>{
@@ -44,6 +44,20 @@ registerRoute(
   /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
   new CacheFirst({
     cacheName: 'google-fonts',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 4,
+        maxAgeSeconds: 31536e3, // unlimited
+        purgeOnQuotaError: !0,
+      }),
+    ],
+  }),
+  'GET'
+);
+registerRoute(
+  /^https:\/\/use\.fontawesome\.com\/releases\/.*/i,
+  new CacheFirst({
+    cacheName: 'font-awesome',
     plugins: [
       new ExpirationPlugin({
         maxEntries: 4,

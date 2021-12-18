@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import Head from "next/head";
-import 'react-calendar/dist/Calendar.css';
 import '../styles/globals.scss';
+import 'react-calendar/dist/Calendar.css';
 import { ChakraProvider } from '@chakra-ui/react'
 import AuthProvider from "../context/AuthProvider";
 import CartProvider from '@/context/CartProvider';

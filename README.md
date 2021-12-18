@@ -7,6 +7,7 @@
 - Tailwind 3.0
 - React Hook Form
 - Chakra UI ^1.x
+- Redux
 - Firebase
 
 ## Getting Started
