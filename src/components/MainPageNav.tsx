@@ -54,9 +54,9 @@ const MainPageNav = () => {
     <div className="grid grid-cols-4 items-center justify-items-center mt-10 px-4 py-8 rounded-2xl shadow-lg" css={css`
       background-color: #FFD79A;
     `}>
-      <NavLink href={route.doctor.index} title="Dokter" icon="fas fa-briefcase-medical"/>
+      <NavLink href={route.doctor.index} comingSoon title="Dokter" icon="fas fa-briefcase-medical"/>
       <NavLink href={route.shop.index} title="Toko" icon="fas fa-store"/>
-      <NavLink href={route.grooming.index} title="Grooming" icon="fas fa-cut"/>
+      <NavLink href={route.grooming.index} comingSoon title="Grooming" icon="fas fa-cut"/>
       <NavLink href={route.promo.index} comingSoon title="Promo" icon="fas fa-percentage"/>
     </div>
   )

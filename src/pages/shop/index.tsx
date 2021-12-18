@@ -17,6 +17,7 @@ const ShopIndexPage: NextPage = () => {
   const {directSearch} = useSearch(fakeDBTableName.shop, route.shop.search);
 
   const recommendationSearch = [
+    "Makanan",
     "Makanan Hewan", "Kandang Hewan Peliharaan", "Shampoo Hewan"
   ]
 

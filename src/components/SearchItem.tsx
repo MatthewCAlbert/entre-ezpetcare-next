@@ -12,8 +12,9 @@ const SearchItem: React.FC<{
   description?: number,
   merchantName?: string,
   link?: string,
-  image?: string
-}> = ({id, name, price, merchantName, image, link, description}) => {
+  image?: string,
+  onAdd?: {():void}
+}> = ({id, name, price, merchantName, image, link, description, onAdd = ()=>{}}) => {
   return (
     <div className="shadow bg-orange-100 flex justify-between items-center rounded-xl px-5 py-2" css={css`
       color: ${theme.darkbrown};
@@ -39,7 +40,7 @@ const SearchItem: React.FC<{
           link ? 
           <i className="fas fa-chevron-right cursor-pointer text-2xl"></i>
           :
-          <i className="fas fa-plus cursor-pointer text-2xl"></i>
+          <i className="fas fa-plus cursor-pointer text-2xl" onClick={onAdd}></i>
         }
       </div>
     </div>

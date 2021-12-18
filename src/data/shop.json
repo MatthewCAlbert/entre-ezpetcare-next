@@ -1,6 +1,6 @@
 [
   {
-    "id": "",
+    "id": "3da899eqwsd",
     "category": [],
     "name": "Budiman Shop",
     "address": "Jalan Keponakan",
@@ -9,6 +9,31 @@
     "items": [
       {
         "id": "1", "name": "Makanan Anjing",
+        "price": 80000, "image": "",
+        "description": ""
+      },
+      {
+        "id": "2", "name": "Makanan Anjing",
+        "price": 80000, "image": "",
+        "description": ""
+      },
+      {
+        "id": "3", "name": "Makanan Anjing",
+        "price": 80000, "image": "",
+        "description": ""
+      },
+      {
+        "id": "4", "name": "Makanan Anjing",
+        "price": 80000, "image": "",
+        "description": ""
+      },
+      {
+        "id": "5", "name": "Makanan Anjing",
+        "price": 80000, "image": "",
+        "description": ""
+      },
+      {
+        "id": "6", "name": "Makanan Anjing",
         "price": 80000, "image": "",
         "description": ""
       }

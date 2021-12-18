@@ -14,11 +14,11 @@
 
 ## Feature
 - Auth
-- Cart (on the way)
-- Shop Search (on the way)
+- Cart
+- Shop Search
 - Doctor Search (on the way)
 - Grooming Search (on the way)
-- Checkout (not implemented yet)
-- Pesanan (not implemented yet)
+- Checkout (only shops)
+- Pesanan (only shops)
 - MyJadwal (not implemented yet)
 - Account Edit (not implemented yet)
