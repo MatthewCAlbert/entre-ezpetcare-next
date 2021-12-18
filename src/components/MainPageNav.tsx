@@ -1,6 +1,7 @@
-import { cssVariables, mq, theme } from '@/config/emotion'
+import { theme } from '@/config/emotion'
 import { route } from '@/config/route'
 import AuthContext from '@/context/AuthContext'
+import { useToast } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import Link from 'next/link'
 import React, { useContext } from 'react'
@@ -8,10 +9,21 @@ import React, { useContext } from 'react'
 const NavLink: React.FC<{
   href: string,
   title: string,
-  icon?: string
-}> = ({href, title, icon, ...props})=>{
+  icon?: string,
+  comingSoon?: boolean
+}> = ({href, title, icon, comingSoon = false, ...props})=>{
+  const toast = useToast();
+
+  const onFeatureNotAvailable = ()=>{
+    toast({
+      title: 'Fitur dalam perjalanan.',
+      status: 'info',
+      duration: 1500,
+    })
+  }
+
   return (
-    <Link href={href} passHref={true}>
+    <Link href={!comingSoon ? href : "#"} passHref={true}>
       <a css={css`
       display: flex;
       flex-direction: column;
@@ -26,6 +38,7 @@ const NavLink: React.FC<{
         font-size: 2.33rem;
       }
     `}
+      onClick={() => comingSoon && onFeatureNotAvailable()}
     >
       <span><i className={icon}></i></span>
       <span className="mt-2">{title}</span>
@@ -44,7 +57,7 @@ const MainPageNav = () => {
       <NavLink href={route.doctor.index} title="Dokter" icon="fas fa-briefcase-medical"/>
       <NavLink href={route.shop.index} title="Toko" icon="fas fa-store"/>
       <NavLink href={route.grooming.index} title="Grooming" icon="fas fa-cut"/>
-      <NavLink href={route.promo.index} title="Promo" icon="fas fa-percentage"/>
+      <NavLink href={route.promo.index} comingSoon title="Promo" icon="fas fa-percentage"/>
     </div>
   )
 }

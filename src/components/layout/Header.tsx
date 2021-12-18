@@ -14,11 +14,16 @@ const Header: React.FC<{
 }> = ({forceSearchOpen = false, simpleBack = false, ...props}) => {
   const router = useRouter();
   const scrollY = useRef(0);
+  const {q} = router.query;
   const [navScrolled, setNavScrolled] = useState(false);
 
   const isSearchPath = router.pathname === "/search";
   const [searchOpen, setSearchOpen] = useState((forceSearchOpen || isSearchPath));
-  const [searchInput, setSearchInput] = useState(router.query?.q || "");
+  const [searchInput, setSearchInput] = useState("");
+
+  useEffect(()=>{
+    if( q ) setSearchInput(String(q));
+  }, [q])
 
   useEffect(() => {
     const handleScroll = () => {

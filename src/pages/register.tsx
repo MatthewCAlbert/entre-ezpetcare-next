@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { addDoc, collection } from '@firebase/firestore/lite';
+import { setDoc, doc } from '@firebase/firestore/lite';
 import { getUnecryptedCookie } from '@/utils/cookie';
 
 const RegisterPage: NextPage = () => {
@@ -47,8 +47,8 @@ const RegisterPage: NextPage = () => {
         const user = userCredential.user;
         try {
           if( auth?.firestore ){
-            const docRef = await addDoc(collection(auth?.firestore, 'users'), {
-              uid: user.uid, name, phone
+            const docRef = await setDoc(doc(auth?.firestore, 'users', user.uid), {
+              name, phone
             });
           }
         } catch (error) {

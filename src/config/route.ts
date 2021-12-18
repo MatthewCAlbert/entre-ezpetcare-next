@@ -2,6 +2,7 @@ export const route = {
   index: "/",
   login: "/login",
   register: "/register",
+  search: "/search",
   promo: {
     index: "/promo"
   },

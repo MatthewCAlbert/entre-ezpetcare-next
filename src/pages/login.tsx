@@ -15,9 +15,9 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { NextPage } from 'next'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { getDocs, collection, query, where } from '@firebase/firestore/lite';
+import { getDoc, doc } from '@firebase/firestore/lite';
 
 const LoginPage: NextPage = () => {
   const [loading, setLoading] = useState(false);
@@ -56,11 +56,8 @@ const LoginPage: NextPage = () => {
         };
         try {
           if( auth?.firestore ){
-            const q = query(collection(auth?.firestore, 'users'), where("uid", "==", user.uid))
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach(el=>{
-              userData = {...userData, name: el.get('name'), phone: el.get('phone') }
-            })
+            const userDetailDoc = await getDoc(doc(auth?.firestore, 'users', user.uid))
+            userData = {...userData, name: userDetailDoc.get('name'), phone: userDetailDoc.get('phone') }
           }
         } catch (error) {
         }

@@ -6,11 +6,11 @@ export interface CartContextInterface{
   dispatch: Dispatch<{type: string, payload: any}>
 }
 
-const cartIntialContext: CartContextInterface = {
+const cartInitialContext: CartContextInterface = {
   state: initialCartState,
   dispatch: () => { throw new Error('No provider') },
 }
 
-const CartContext = createContext(cartIntialContext);
+const CartContext = createContext(cartInitialContext);
 
 export default CartContext;

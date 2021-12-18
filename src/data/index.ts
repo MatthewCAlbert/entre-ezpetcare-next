@@ -19,8 +19,25 @@ export const fakeDb = {
     const dbs = dbData[dbName];
     return dbs.filter((el)=>el?.category?.includes(category) );
   },
-  filterItemByName: (dbName: fakeDBTableName, name: string)=>{
+  filterMerchantByName: (dbName: fakeDBTableName, name: string)=>{
     const dbs = dbData[dbName];
     return dbs.filter((el)=>el?.name?.match(new RegExp(name, "gi")) );
+  },
+  filterItemByName: (dbName: fakeDBTableName, name: string)=>{
+    const dbs = dbData[dbName];
+    const res: {
+      id: string,
+      name: string,
+      price: number,
+      description: string,
+      merchantName?: string
+    }[] = [];
+    dbs.forEach( merchant => {
+      merchant.items.forEach( item => {
+        if( item.name?.match(new RegExp(name, "gi")) )
+          res.push({...item, merchantName: merchant.name});
+      } )
+    } )
+    return res;
   }
 }

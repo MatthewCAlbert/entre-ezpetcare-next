@@ -10,4 +10,14 @@
 - Firebase
 
 ## Getting Started
-- Setup firebase.ts using firebase.example.ts
+- Setup firebase env in .env.local
+
+## Feature
+- Auth
+- Cart (on the way)
+- Shop Search (on the way)
+- Doctor Search (on the way)
+- Grooming Search (on the way)
+- Pesanan (not implemented yet)
+- MyJadwal (not implemented yet)
+- Account Edit (not implemented yet)
